@@ -1,0 +1,16 @@
+html
+  head
+  body
+    h1 this is sketch.
+    p
+        != text
+    if photos.length > 0
+        each photo in photos
+            p
+                != photo.tag
+            if photo.success
+                img(src = photo.link)
+            else
+                h5 no response
+    else
+        h3 no keywords found in text
