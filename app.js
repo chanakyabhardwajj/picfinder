@@ -2,17 +2,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var alchemy = require('./js/alchemy.js');
-var flickr = require('./js/flickr.js');
+//var flickr = require('./js/flickr.js');
 var search500px = require('./js/500px.js');
-var flickrInstance;
+//var flickrInstance;
 
-flickr.init().then(function(instance) {
-    console.log("Flickr initted")
-    flickrInstance = instance;
-    appBoot();
-}, function(err) {
-    console.log("Error initialising Flickr");
-});
+// flickr.init().then(function(instance) {
+//     console.log("Flickr initted")
+//     flickrInstance = instance;
+//     appBoot();
+// }, function(err) {
+//     console.log("Error initialising Flickr");
+// });
 
 function appBoot() {
     var app = express();
@@ -35,7 +35,7 @@ function appBoot() {
 
             var photoPromises = [];
             keywords.map(function(keyword) {
-                photoPromises.push(flickr.search(flickrInstance, keyword.text));
+                //photoPromises.push(flickr.search(flickrInstance, keyword.text));
                 photoPromises.push(search500px(keyword.text));
             });
 
@@ -67,3 +67,5 @@ function appBoot() {
         console.log("App listening on ", port);
     });
 }
+
+appBoot();
