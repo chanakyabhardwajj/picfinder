@@ -1,10 +1,5 @@
-var nconf = require('nconf');
-nconf.file({
-    file: 'config.json'
-});
-
 var API500px = require('500px'),
-    api500px = new API500px(nconf.get("500pxKey"));
+    api500px = new API500px(process.env.key500px);
 
 module.exports = function(tag) {
     return new Promise(function(resolve, reject) {

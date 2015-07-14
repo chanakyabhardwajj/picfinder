@@ -1,9 +1,5 @@
-var nconf = require('nconf');
-nconf.file({
-    file: 'config.json'
-});
 var AlchemyAPI = require('alchemy-api');
-var alchemy = new AlchemyAPI(nconf.get("alchemyKey"));
+var alchemy = new AlchemyAPI(process.env.alchemyKey);
 
 module.exports = function(text) {
     return new Promise(function(resolve, reject) {

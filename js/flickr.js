@@ -1,12 +1,7 @@
-var nconf = require('nconf');
-nconf.file({
-    file: 'config.json'
-});
-
 var Flickr = require("flickrapi"),
     flickrOptions = {
-        api_key: nconf.get("flickrKey"),
-        secret: nconf.get("flickrSecret")
+        api_key: process.env.flickrKey,
+        secret: process.env.flickrSecret
     };
 
 exports.init = function() {

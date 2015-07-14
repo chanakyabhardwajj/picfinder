@@ -1,3 +1,4 @@
+require('dotenv').load();
 var express = require('express');
 var bodyParser = require('body-parser');
 var alchemy = require('./js/alchemy.js');

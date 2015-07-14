@@ -1,14 +1,9 @@
-var nconf = require('nconf');
-nconf.file({
-    file: 'config.json'
-});
-
 var ConnectSdk = require("ConnectSdk");
 var connectSdk = new ConnectSdk(
-    nconf.get("gettKey"),
-    nconf.get("gettySecret"),
-    nconf.get("gettyUsername"),
-    nconf.get("gettyPassword"),
+    process.env.gettKey,
+    process.env.gettySecret,
+    process.env.gettyUsername,
+    process.env.gettyPassword,
 );
 
 var search = connectSdk

@@ -1,12 +1,8 @@
-var nconf = require('nconf');
-nconf.file({
-    file: 'config.json'
-});
 var shutterstock = require('shutterstock');
 
 var api = shutterstock.v2({
-    clientId: nconf.get("shutterstockId"),
-    clientSecret: nconf.get("shutterstockSecret")
+    clientId: process.env.shutterstockId,
+    clientSecret: process.env.shutterstockSecret
 });
 
 api.image.search('cold steel rail', function(err, data) {
