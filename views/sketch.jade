@@ -1,16 +1,17 @@
 html
   head
+    style
+        include ../public/css/style.css
   body
     h1 this is sketch.
     p
         != text
-    if photos.length > 0
-        each photo in photos
-            p
-                != photo.tag
-            if photo.success
-                img(src = photo.link)
+    each dataObject, key in renderableData
+        h3
+            != key
+        each responseObject in dataObject
+            if responseObject.success
+                a(href = responseObject.link)
+                    img(src = responseObject.imageLink)
             else
                 h5 no response
-    else
-        h3 no keywords found in text

@@ -1,18 +1,26 @@
 <html>
 
-<head></head>
+<head>
+    <script type="text/javascript">
+        function post() {
+            var xhr = new XMLHttpRequest();
+            var text = document.querySelector("#text").value;
+            xhr.open('POST', '/sketch?text=' + text);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.write(xhr.responseText);
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</head>
 
 <body>
     <h1>this is picfinder</h1>
-    <form action="/sketch" method="post">
-        <fieldset>
-            <label for="text">Text:</label>
-            <textarea id="text" name="text" placeholder="what do you wanna skecth??">Can you tell a green field from a cold steel rail?</textarea>
-
-            <input type="submit" value="Send message" />
-
-        </fieldset>
-    </form>
+    <textarea id="text" name="text" placeholder="what do you wanna skecth??">Can you tell a green field from a cold steel rail?</textarea>
+    <input type="button" value="Send message" onclick="post()" />
 </body>
 
 </html>

@@ -18,27 +18,46 @@ exports.init = function() {
 exports.search = function(flickrInstance, tag) {
     return new Promise(function(resolve, reject) {
         flickrInstance.photos.search({
-            tags: tag
-        }, function(err, result) {
-            var responseObject = {
-                tag: tag,
-                link: null,
-                success: true
+            text: tag,
+            page: 1,
+            per_page: 20,
+            sort : "relevance"
+        }, function(error, results) {
+            //console.log(results);
+
+            var resolveObject = {
+                keyword: tag,
+                results: []
             };
 
-            if (err) {
-                responseObject.success = false;
+            if (error) {
+                resolveObject = null;
             }
 
-            try {
-                var photoObj = result.photos.photo[0];
-                var link = "https://farm" + photoObj.farm + ".staticflickr.com/" + photoObj.server + "/" + photoObj.id + "_" + photoObj.secret + ".jpg";
-                responseObject.link = link;
-            } catch (e) {
-                responseObject.success = false;
+            if (results && Array.isArray(results.photos.photo) && results.photos.photo.length > 0) {
+                for (item of results.photos.photo) {
+                    var responseObject = {
+                        tag: tag,
+                        link: null,
+                        success: true,
+                        imageLink: null,
+                        source: "Flickr"
+                    };
+
+                    try {
+                        responseObject.link = "https://farm" + item.farm + ".staticflickr.com/" + item.server + "/" + item.id + "_" + item.secret + ".jpg";
+                        responseObject.imageLink = "https://farm" + item.farm + ".staticflickr.com/" + item.server + "/" + item.id + "_" + item.secret + ".jpg";
+                    } catch (e) {
+                        responseObject.success = false;
+                    }
+
+                    resolveObject.results.push(responseObject);
+                }
+            } else {
+                resolveObject = null;
             }
 
-            resolve(responseObject);
+            resolve(resolveObject);
         });
     });
 }

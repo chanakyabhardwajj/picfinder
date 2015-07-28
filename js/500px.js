@@ -4,25 +4,43 @@ var API500px = require('500px'),
 module.exports = function(tag) {
     return new Promise(function(resolve, reject) {
         api500px.photos.searchByTag(tag, {
-            image_size: 5
+            image_size: 3
         }, function(error, results) {
-            var responseObject = {
-                tag: tag,
-                link: null,
-                success: true
+            //console.log(results);
+
+            var resolveObject = {
+                keyword : tag,
+                results : []
             };
 
             if (error) {
-                responseObject.success = false;
+                resolveObject = null;
             }
 
-            try {
-                responseObject.link = results.photos[0].image_url;
-            } catch (e) {
-                responseObject.success = false;
+            if(results && Array.isArray(results.photos) && results.photos.length > 0) {
+                for(item of results.photos) {
+                    var responseObject = {
+                        tag: tag,
+                        link: null,
+                        success: true,
+                        imageLink: null,
+                        source: "500px"
+                    };
+
+                    try {
+                        responseObject.link = "http://500px.com" + item.url;
+                        responseObject.imageLink = item.image_url;
+                    } catch (e) {
+                        responseObject.success = false;
+                    }
+
+                    resolveObject.results.push(responseObject);
+                }
+            } else {
+                resolveObject = null;
             }
 
-            resolve(responseObject);
+            resolve(resolveObject);
         });
     });
 };
