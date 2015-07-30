@@ -45,8 +45,8 @@ function appBoot() {
             keywords.map(function(keyword) {
                 photoPromises.push(flickr.search(flickrInstance, keyword.text));
                 photoPromises.push(search500px(keyword.text));
-                photoPromises.push(shutterstock(keyword.text));
-                photoPromises.push(getty(keyword.text));
+                //photoPromises.push(shutterstock(keyword.text));
+                //photoPromises.push(getty(keyword.text));
             });
 
             Promise.all(photoPromises).then(function(responses) {
