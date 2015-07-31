@@ -7,8 +7,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var alchemy = require('./js/alchemy.js');
 var flickr = require('./js/flickr.js');
-var getty = require('./js/getty.js');
-var shutterstock = require('./js/shutterstock.js');
+//var getty = require('./js/getty.js');
+//var shutterstock = require('./js/shutterstock.js');
 var search500px = require('./js/500px.js');
 var flickrInstance;
 
