@@ -4,7 +4,7 @@ var API500px = require('500px'),
 module.exports = function(tag) {
     return new Promise(function(resolve, reject) {
         api500px.photos.searchByTag(tag, {
-            image_size: 3
+            image_size: 5
         }, function(error, results) {
             //console.log(results);
 

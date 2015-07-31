@@ -3,14 +3,17 @@ try {
 } catch (e) {
     console.log("No .env found!");
 }
+
+var flickrInstance;
 var express = require('express');
 var bodyParser = require('body-parser');
 var alchemy = require('./js/alchemy.js');
 var flickr = require('./js/flickr.js');
+var search500px = require('./js/500px.js');
+
 //var getty = require('./js/getty.js');
 //var shutterstock = require('./js/shutterstock.js');
-var search500px = require('./js/500px.js');
-var flickrInstance;
+
 
 flickr.init().then(function(instance) {
     console.log("Flickr initialised");
@@ -28,56 +31,60 @@ function appBoot() {
     }));
 
     app.use(express.static('public'));
-    app.set('views', './views');
-    app.set('view engine', 'jade');
 
     app.get('/', function(req, res) {
         res.send('index.html');
     });
 
-    app.post("/sketch", function(req, res) {
-        //console.log(req.query);
+    app.post("/picfinder", function(req, res) {
         alchemy(req.query.text).then(function(keywords) {
-            //console.log("alchemy success", keywords);
-
             var renderableData = {};
             var photoPromises = [];
+            var finalResponse = [];
+
             keywords.map(function(keyword) {
-                photoPromises.push(flickr.search(flickrInstance, keyword.text));
-                photoPromises.push(search500px(keyword.text));
-                //photoPromises.push(shutterstock(keyword.text));
-                //photoPromises.push(getty(keyword.text));
+                photoPromises.push(flickr.search(flickrInstance, keyword));
+                photoPromises.push(search500px(keyword));
+                //photoPromises.push(shutterstock(keyword));
+                //photoPromises.push(getty(keyword));
             });
 
             Promise.all(photoPromises).then(function(responses) {
-                //console.log("photoPromises success", responses);
-
-                for(response of responses) {
-                    if(response !== null) {
-                        if(renderableData[response.keyword]) {
-                            renderableData[response.keyword] = renderableData[response.keyword].concat(response.results)
+                for (response of responses) {
+                    if (response !== null) {
+                        if (renderableData[response.keyword]) {
+                            renderableData[response.keyword] = renderableData[response.keyword].concat(response.results);
                         } else {
                             renderableData[response.keyword] = response.results;
                         }
                     }
                 }
 
-                res.render('sketch', {
-                    text: req.body.text,
-                    renderableData: renderableData
-                }, function(err, html) {
-                    if (err) {
-                        console.log("Sketch response failure", err);
+                for (var prop in renderableData) {
+                    //send a keyword iff more than 5 images are found for it
+                    if(renderableData[prop].length > 5) {
+                        var obj = {
+                            keyword: prop,
+                            pictures: renderableData[prop]
+                        };
+
+                        finalResponse.push(obj);
                     }
-                    //console.log("Sketch response success", html);
-                    res.send(html);
-                });
-            }).catch(function(err) {
-                console.log("photoPromises failure", err);
+                }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.stringify({
+                    data: finalResponse
+                }));
+
+            }).catch(function(error) {
+                console.log("photoPromises failure", error);
+                res.status(400).send('Error in fetching the pictures : ' + error);
             });
 
         }).catch(function(error) {
             console.log("alchemy failure", error);
+            res.status(400).send('Oops. ' + error);
         })
     });
 
@@ -87,5 +94,3 @@ function appBoot() {
         console.log("App listening on ", port);
     });
 }
-
-//appBoot();
