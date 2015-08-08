@@ -1,12 +1,15 @@
 var Flickr = require("flickrapi"),
     flickrOptions = {
         api_key: process.env.flickrKey,
-        secret: process.env.flickrSecret
+        secret: process.env.flickrSecret,
+        user_id: process.env.user_id,
+        access_token: process.env.access_token,
+        access_token_secret: process.env.access_token_secret
     };
 
 exports.init = function() {
     return new Promise(function(resolve, reject) {
-        Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+        Flickr.authenticate(flickrOptions, function(error, flickr) {
             if (error) {
                 reject(error);
             }
