@@ -8,9 +8,8 @@ var flickrInstance;
 var express = require('express');
 var bodyParser = require('body-parser');
 var alchemy = require('./js/alchemy.js');
-var flickr = require('./js/flickr.js');
+//var flickr = require('./js/flickr.js');
 var search500px = require('./js/500px.js');
-
 var getty = require('./js/getty.js');
 //var shutterstock = require('./js/shutterstock.js');
 
