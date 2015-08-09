@@ -1,4 +1,4 @@
-var ConnectSdk = require("ConnectSdk");
+var ConnectSdk = require("connectsdk");
 
 var connectSdk = new ConnectSdk(
     process.env.gettyKey,
