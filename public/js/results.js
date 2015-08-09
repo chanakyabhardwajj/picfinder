@@ -150,14 +150,14 @@ var InputSection = React.createClass({
                 });
             });
         } else {
-            React.render(React.createElement(ResultSection, { failure: true, message: "You have not entered any text" }), document.getElementById("resultSection"));
+            React.render(React.createElement(ResultSection, { failure: true, message: "You have not provided a link" }), document.getElementById("resultSection"));
         }
     },
     render: function render() {
         return React.createElement(
             'div',
             null,
-            React.createElement('textarea', { id: "text", name: "text", placeholder: "say something..." }),
+            React.createElement('input', { type: "text", id: "text", name: "text", value: "https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4", placeholder: "paste a link..." }),
             React.createElement('input', { id: "submitButton", type: "button", value: this.state.buttonLabel, onClick: this.handleClick })
         );
     }

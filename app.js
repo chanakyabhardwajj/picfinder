@@ -63,7 +63,7 @@ function appBoot() {
                     //send a keyword iff more than 5 images are found for it
                     if(renderableData[prop].length > 5) {
                         var obj = {
-                            keyword: prop,
+                            keyword: prop.toLowerCase(),
                             pictures: renderableData[prop]
                         };
 

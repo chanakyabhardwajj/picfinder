@@ -126,14 +126,14 @@ var InputSection = React.createClass({
             })
         } else {
             React.render(
-                <ResultSection failure={true} message="You have not entered any text"></ResultSection>, document.getElementById("resultSection")
+                <ResultSection failure={true} message="You have not provided a link"></ResultSection>, document.getElementById("resultSection")
             );
         }
     },
     render : function(){
         return (
             <div>
-                <textarea id="text" name="text" placeholder="say something..."></textarea>
+                <input type="text" id="text" name="text" value="https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4" placeholder="paste a link..."></input>
                 <input id="submitButton" type="button" value={this.state.buttonLabel} onClick={this.handleClick}/>
             </div>
         );

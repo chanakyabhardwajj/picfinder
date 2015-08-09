@@ -10,13 +10,12 @@ h1 {
     margin: 40px auto;
 }
 
-textarea {
+input[type="text"] {
     border: none;
     outline: none;
     box-shadow: none;
     resize:none;
-    width: 80%;
-    height: 25%;
+    min-width: 60%;
     font-size: 16px;
     padding: 5px;
     line-height: 1.5;
@@ -40,7 +39,8 @@ input[type="button"] {
 .KeySection{
     background-color: white;
     padding: 20px;
-    margin-top: 30px;
+    margin: 30px auto;
+    width: 80%;
 }
 
 .Keyword{
@@ -93,4 +93,17 @@ input[type="button"] {
 .PictureDesc{
     padding: 10px;
     color: white;
+}
+
+#aboutSection{
+    background-color: white;
+    color: black;
+    padding: 20px;
+    margin: 30px auto;
+    width: 80%;
+    text-align: left;
+}
+
+#aboutSection::first-line {
+    font-size: 23px;
 }
