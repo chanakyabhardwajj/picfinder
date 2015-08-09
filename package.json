@@ -1,6 +1,6 @@
 {
   "name": "picfinder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Generates an image collage by analysing a piece of text",
   "main": "app.js",
   "author": "Chanakya Bhardwaj",
@@ -12,7 +12,6 @@
     "connectsdk": "^1.0.4",
     "dotenv": "^1.2.0",
     "express": "^4.13.1",
-    "flickrapi": "^0.3.32",
-    "jade": "^1.11.0"
+    /*"flickrapi": "^0.3.32"*/
   }
 }
