@@ -133,7 +133,7 @@ var InputSection = React.createClass({
     render : function(){
         return (
             <div>
-                <input type="text" id="text" name="text" value="https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4" placeholder="paste a link..."></input>
+                <input type="text" id="text" name="text" defaultValue="https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4" placeholder="paste a link..."></input>
                 <input id="submitButton" type="button" value={this.state.buttonLabel} onClick={this.handleClick}/>
             </div>
         );

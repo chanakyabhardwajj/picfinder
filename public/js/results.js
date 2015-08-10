@@ -157,7 +157,7 @@ var InputSection = React.createClass({
         return React.createElement(
             'div',
             null,
-            React.createElement('input', { type: "text", id: "text", name: "text", value: "https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4", placeholder: "paste a link..." }),
+            React.createElement('input', { type: "text", id: "text", name: "text", defaultValue: "https://medium.com/@tdoria/meditation-for-dummies-4d9cd7b366d4", placeholder: "paste a link..." }),
             React.createElement('input', { id: "submitButton", type: "button", value: this.state.buttonLabel, onClick: this.handleClick })
         );
     }
